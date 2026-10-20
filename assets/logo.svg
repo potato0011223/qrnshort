@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="badgeGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#6366f1" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Icon Mark Container -->
+  <g filter="url(#badgeGlow)">
+    <rect x="6" y="8" width="44" height="44" rx="12" fill="#0f172a" />
+    <rect x="7" y="9" width="42" height="42" rx="11" fill="none" stroke="url(#logoGrad)" stroke-width="1.8" opacity="0.8"/>
+    
+    <!-- QR Finders -->
+    <rect x="14" y="16" width="11" height="11" rx="3" fill="none" stroke="url(#logoGrad)" stroke-width="1.8" />
+    <rect x="17" y="19" width="5" height="5" rx="1" fill="url(#logoGrad)" />
+
+    <rect x="31" y="16" width="11" height="11" rx="3" fill="none" stroke="url(#logoGrad)" stroke-width="1.8" />
+    <rect x="34" y="19" width="5" height="5" rx="1" fill="url(#logoGrad)" />
+
+    <rect x="14" y="33" width="11" height="11" rx="3" fill="none" stroke="url(#logoGrad)" stroke-width="1.8" />
+    <rect x="17" y="36" width="5" height="5" rx="1" fill="url(#logoGrad)" />
+
+    <!-- Link loop -->
+    <circle cx="36" cy="38" r="4" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <path d="M 33 41 L 39 35" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="62" y="35" font-family="'Plus Jakarta Sans', 'Pretendard', sans-serif" font-weight="800" font-size="24" fill="#f8fafc" letter-spacing="-0.5">
+    QR<tspan fill="url(#logoGrad)">n</tspan>Short
+  </text>
+  <text x="63" y="48" font-family="'Inter', 'Pretendard', sans-serif" font-weight="600" font-size="9" fill="#94a3b8" letter-spacing="1.2">
+    SMART QR &amp; SHORT URL
+  </text>
+</svg>

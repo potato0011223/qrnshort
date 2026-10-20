@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR코드 생성기 | QRnShort</title>
+  <meta name="description" content="URL, 텍스트, Wi-Fi, 명함을 QR코드로 변환. 색상·로고·해상도 커스텀 후 PNG/JPG 다운로드.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../improvements.css">
+  <script src="./qrcode.min.js"></script>
+  <script src="./jsQR.min.js"></script>
+</head>
+<body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div id="app" class="app-layout">
+    <!-- 헤더 -->
+    <header class="site-header">
+      <div class="header-inner container">
+        <div class="brand-area">
+          <a href="../index.html" class="back-link" title="메인으로 돌아가기">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            <span>메인</span>
+          </a>
+          <span class="header-title">📱 QR코드 생성기</span>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="테마 전환">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content container">
+      <div class="hero-section">
+        <h1 class="hero-title">스타일리시한 <span class="gradient-text">맞춤형 QR코드</span>를 1초 만에 생성하세요</h1>
+        <p class="hero-desc">URL, 와이파이, 텍스트, 명함까지 다양한 포맷 지원. 로고 삽입 및 컬러 커스텀 가능.</p>
+      </div>
+
+      <div class="tool-grid qr-grid">
+        <!-- 좌측: 입력 패널 -->
+        <div class="panel-card input-panel">
+
+          <!-- 데이터 유형 선택 -->
+          <div class="form-group">
+            <label class="form-label">데이터 유형 선택</label>
+            <div class="data-type-chips" id="qr-type-chips">
+              <button type="button" class="chip active" data-type="url">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <span>URL</span>
+              </button>
+              <button type="button" class="chip" data-type="text">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+                <span>텍스트</span>
+              </button>
+              <button type="button" class="chip" data-type="wifi">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                <span>Wi-Fi</span>
+              </button>
+              <button type="button" class="chip" data-type="vcard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>명함</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 동적 입력 필드 -->
+          <div id="qr-input-fields">
+            <!-- URL -->
+            <div class="field-group" id="group-url">
+              <label for="qr-input-url" class="form-label">웹사이트 URL</label>
+              <div class="input-with-icon">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <input type="url" id="qr-input-url" class="form-input" placeholder="https://example.com" value="https://sdu.ac.kr">
+                <button type="button" class="btn-clear-input" id="btn-clear-url" title="지우기">&times;</button>
+              </div>
+              <div class="quick-preset-urls">
+                <span class="preset-label">예시:</span>
+                <button type="button" class="preset-pill" data-fill="https://sdu.ac.kr">서울디지털대학교</button>
+                <button type="button" class="preset-pill" data-fill="https://github.com">GitHub</button>
+                <button type="button" class="preset-pill" data-fill="https://naver.com">Naver</button>
+              </div>
+            </div>
+            <!-- 텍스트 -->
+            <div class="field-group hidden" id="group-text">
+              <label for="qr-input-text" class="form-label">텍스트 또는 메시지</label>
+              <textarea id="qr-input-text" class="form-textarea" rows="3" placeholder="QR코드에 담을 텍스트를 입력하세요."></textarea>
+            </div>
+            <!-- Wi-Fi -->
+            <div class="field-group hidden" id="group-wifi">
+              <div class="form-row">
+                <div class="col"><label for="wifi-ssid" class="form-label">네트워크 이름(SSID)</label><input type="text" id="wifi-ssid" class="form-input" placeholder="My_WiFi"></div>
+                <div class="col"><label for="wifi-auth" class="form-label">보안 방식</label><select id="wifi-auth" class="form-select"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">없음</option></select></div>
+              </div>
+              <div class="form-row" style="margin-top:10px">
+                <div class="col"><label for="wifi-pass" class="form-label">비밀번호</label><input type="text" id="wifi-pass" class="form-input" placeholder="password123"></div>
+                <div class="col" style="display:flex;align-items:flex-end;padding-bottom:1px"><label style="display:flex;align-items:center;gap:8px;font-size:.85rem"><input type="checkbox" id="wifi-hidden"> 숨겨진 네트워크</label></div>
+              </div>
+            </div>
+            <!-- 명함 -->
+            <div class="field-group hidden" id="group-vcard">
+              <div class="form-row">
+                <div class="col"><label for="vcard-name" class="form-label">이름</label><input type="text" id="vcard-name" class="form-input" placeholder="홍길동"></div>
+                <div class="col"><label for="vcard-org" class="form-label">소속/회사</label><input type="text" id="vcard-org" class="form-input" placeholder="서울디지털대학교"></div>
+              </div>
+              <div class="form-row" style="margin-top:10px">
+                <div class="col"><label for="vcard-phone" class="form-label">전화번호</label><input type="tel" id="vcard-phone" class="form-input" placeholder="010-1234-5678"></div>
+                <div class="col"><label for="vcard-email" class="form-label">이메일</label><input type="email" id="vcard-email" class="form-input" placeholder="user@sdu.ac.kr"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 커스텀 옵션 아코디언 -->
+          <div class="custom-section">
+            <button type="button" class="custom-toggle" id="toggle-custom-opt">
+              <span>🎨 색상·크기·로고 설정</span>
+              <svg class="toggle-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="custom-body" id="custom-body">
+              <div class="form-row">
+                <div class="col">
+                  <label class="form-label">전경색(QR색)</label>
+                  <div class="color-picker-box">
+                    <input type="color" id="qr-fg-color" value="#0f172a" class="color-swatch-input">
+                    <input type="text" id="qr-fg-hex" value="#0f172a" class="form-input form-input-hex" maxlength="7">
+                  </div>
+                </div>
+                <div class="col">
+                  <label class="form-label">배경색</label>
+                  <div class="color-picker-box">
+                    <input type="color" id="qr-bg-color" value="#ffffff" class="color-swatch-input">
+                    <input type="text" id="qr-bg-hex" value="#ffffff" class="form-input form-input-hex" maxlength="7">
+                  </div>
+                </div>
+              </div>
+              <div class="form-row" style="margin-top:14px">
+                <div class="col">
+                  <label for="qr-size-slider" class="form-label">QR 크기: <span id="size-val">280px</span></label>
+                  <input type="range" id="qr-size-slider" min="180" max="600" step="20" value="280" class="range-slider">
+                </div>
+                <div class="col">
+                  <label for="qr-correct-level" class="form-label">오류 복원력</label>
+                  <select id="qr-correct-level" class="form-select">
+                    <option value="L">L – 7%</option>
+                    <option value="M">M – 15%</option>
+                    <option value="Q">Q – 25%</option>
+                    <option value="H" selected>H – 30% (로고 삽입용)</option>
+                  </select>
+                </div>
+              </div>
+              <!-- 로고 -->
+              <div style="margin-top:16px">
+                <label class="form-label">중앙 로고</label>
+                <div class="logo-selection-row">
+                  <button type="button" class="logo-choice active" data-logo="none" title="없음"><span>🚫</span><span>없음</span></button>
+                  <button type="button" class="logo-choice" data-logo="../assets/qr-link.svg" title="링크"><img src="../assets/qr-link.svg" width="22" height="22" alt="Link"><span>링크</span></button>
+                  <button type="button" class="logo-choice" data-logo="../assets/qr-globe.svg" title="지구본"><img src="../assets/qr-globe.svg" width="22" height="22" alt="Globe"><span>웹</span></button>
+                  <button type="button" class="logo-choice" data-logo="../assets/qr-wifi.svg" title="와이파이"><img src="../assets/qr-wifi.svg" width="22" height="22" alt="WiFi"><span>Wi-Fi</span></button>
+                  <label class="logo-upload-btn" title="직접 업로드">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span>내 이미지</span>
+                    <input type="file" id="custom-logo-upload" accept="image/*" class="sr-only">
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-footer">
+            <button type="button" class="btn btn-primary btn-lg" id="btn-generate-qr">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              QR코드 생성
+            </button>
+            <button type="button" class="btn btn-glass" id="btn-reset-qr">초기화</button>
+          </div>
+        </div>
+
+        <!-- 우측: 미리보기 -->
+        <div class="panel-card preview-panel">
+          <div class="preview-header">
+            <div class="preview-status"><span class="live-dot"></span><span>실시간 미리보기</span></div>
+            <span class="preview-resolution" id="preview-res-tag">280 × 280 px</span>
+          </div>
+
+          <div class="qr-stage" id="qr-stage">
+            <div class="qr-canvas-wrapper" id="qr-canvas-wrapper" title="클릭하면 JPG로 저장됩니다">
+              <div id="qrcode-container"></div>
+              <img id="qr-center-logo-img" class="qr-center-logo hidden" alt="QR Center Logo" crossorigin="anonymous">
+            </div>
+            <p class="qr-scan-guide">QR 이미지 클릭 → JPG 다운로드 &nbsp;|&nbsp; 스마트폰 카메라로 바로 인식</p>
+          </div>
+
+          <div class="export-actions">
+            <button type="button" class="btn btn-primary" id="btn-download-png">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              PNG 저장
+            </button>
+            <button type="button" class="btn btn-secondary" id="btn-download-jpg">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              JPG 저장
+            </button>
+            <button type="button" class="btn btn-glass" id="btn-copy-clipboard">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              이미지 복사
+            </button>
+          </div>
+
+          <div class="preview-sub-actions">
+            <button type="button" class="btn-sub-action" id="btn-save-qr-history">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              보관함에 저장
+            </button>
+            <button type="button" class="btn-sub-action" id="btn-go-to-shortener">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              이 링크로 단축 URL 만들기 →
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; 2026 <strong>QRnShort</strong> · 바이브코딩 과제 프로젝트02 · 서울디지털대학교(SDU)</p>
+        <div class="footer-links">
+          <a href="../index.html">← 메인으로</a>
+          <span class="sep">•</span>
+          <a href="../urlShort/index.html">URL 단축 →</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="../common.js"></script>
+  <script src="../app.js"></script>
+</body>
+</html>

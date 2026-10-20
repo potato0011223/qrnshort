@@ -1,0 +1,21 @@
+/* 기존 테마를 유지하는 독립 화면과 접근성 보완 */
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);text-decoration:none;white-space:nowrap}
+.header-title{font-weight:700;margin-left:12px}.custom-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 0;background:none;border:0;color:var(--text-primary);font:inherit;cursor:pointer}
+.custom-body{padding:14px 0}.custom-body[hidden]{display:none}
+.utility-panel{margin-top:28px;padding:24px}.utility-panel h2{font-size:1.2rem;margin-bottom:10px}
+.utility-help{font-size:.85rem;color:var(--text-secondary);line-height:1.7;margin:8px 0 16px}
+.utility-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.utility-row input{min-width:0;flex:1}.utility-row select{max-width:180px}
+.utility-history{display:grid;gap:12px}.utility-history p{font-size:.85rem;margin:5px 0;color:var(--text-secondary)}.utility-history article{flex-wrap:wrap;gap:10px}
+.scan-result{white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto;margin:12px 0}
+#scan-video{width:100%;max-height:360px;border-radius:16px}#scan-video[hidden]{display:none}
+#qr-canvas-wrapper{cursor:pointer;max-width:100%;background:#fff}
+#qrcode-container canvas{display:block;max-width:100%;height:auto}
+.btn:disabled,button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.short-page{max-width:840px;margin:auto}.short-result-card{margin-top:24px}#result-url-readonly{width:100%;font-size:1.1rem;font-weight:700}
+#result-orig-url{overflow-wrap:anywhere;color:var(--text-secondary);margin:12px 0}#result-short-url{overflow-wrap:anywhere}
+#short-result-qr-preview{background:#fff;padding:20px;width:max-content;margin:18px auto;border-radius:12px}
+#short-result-qr-preview img,#short-result-qr-preview canvas{max-width:180px;height:auto}
+.qr-canvas-wrapper{box-sizing:border-box;width:100%;max-width:640px}
+#qrcode-container{min-width:0;max-width:100%}.tool-grid>*{min-width:0}
+:focus-visible{outline:3px solid #38bdf8;outline-offset:4px}
+@media(max-width:600px){.utility-panel{padding:16px}.header-inner{flex-wrap:wrap}.header-title{font-size:.9rem;margin-left:0}.brand-area{gap:10px}.utility-row .btn{flex:1 1 auto}.tool-grid>*{min-width:0}.container{padding-left:16px;padding-right:16px}.history-item-card{padding:14px}.form-input,.form-textarea,.form-select{font-size:16px}}

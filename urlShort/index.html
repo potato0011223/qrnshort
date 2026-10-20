@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL 단축 | QRnShort</title>
+  <meta name="description" content="공개 OpenAPI로 실제 단축 주소를 만들고 복사합니다.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../improvements.css">
+  <script src="../assets/vendor/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="ambient-glow glow-1" aria-hidden="true"></div><div class="ambient-glow glow-2" aria-hidden="true"></div>
+  <header class="site-header"><div class="header-inner container">
+    <div class="brand-area"><a class="back-link" href="../index.html">← 메인</a><span class="header-title">URL 단축</span></div>
+    <div class="header-actions"><a class="back-link" href="../url2qr/index.html">QR 생성 →</a><button type="button" class="btn btn-glass" id="theme-toggle" aria-label="밝은 테마와 어두운 테마 전환">테마 전환</button></div>
+  </div></header>
+  <main class="main-content container short-page">
+    <div class="hero-section"><h1 class="hero-title">긴 주소를 <span class="gradient-text">짧고 간편하게</span></h1><p class="hero-desc">OpenAPI로 발급한 단축 주소를 다른 기기에서도 사용할 수 있습니다.</p></div>
+    <section class="panel-card utility-panel" aria-label="URL 단축기">
+      <form id="shortener-form" novalidate>
+        <div class="form-group"><label for="long-url-input" class="form-label">단축할 웹사이트 주소</label><div class="input-with-icon"><input id="long-url-input" type="text" inputmode="url" class="form-input" placeholder="https://example.com/long/path" required><button type="button" id="btn-clear-short-url" class="btn-clear-input" aria-label="주소 지우기">×</button></div></div>
+        <div class="form-row"><div class="col"><label for="short-title-input" class="form-label">설명 (선택)</label><input id="short-title-input" class="form-input" maxlength="100" placeholder="예: 과제 참고 링크"></div><div class="col"><label for="short-alias-input" class="form-label">맞춤 코드 (선택)</label><input id="short-alias-input" class="form-input" minlength="5" maxlength="30" pattern="[A-Za-z0-9_]{5,30}" placeholder="영문·숫자·밑줄 5~30자"></div></div>
+        <p class="utility-help">주소를 외부 단축 서비스에 전송합니다. 기본 단축은 da.gd, 맞춤 코드 입력 시 is.gd를 사용합니다. 요청 제한이나 서비스 오류가 발생하면 잠시 후 다시 시도해 주세요. 맞춤 코드는 다른 사용자가 이미 사용 중일 수 있습니다.</p>
+        <button id="btn-create-short" type="submit" class="btn btn-primary btn-lg" disabled>단축하기</button>
+      </form>
+      <div id="short-result-container" class="short-result-card hidden" aria-live="polite">
+        <label for="result-url-readonly" class="form-label">생성된 실제 단축 주소 (읽기 전용)</label>
+        <input id="result-url-readonly" class="form-input" readonly aria-label="생성된 단축 주소">
+        <a id="result-short-url" target="_blank" rel="noopener noreferrer"></a>
+        <p id="result-orig-url"></p>
+        <div class="utility-row"><button type="button" id="btn-copy-short-url" class="btn btn-primary">주소 복사</button><a id="btn-visit-short-url" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">주소 열기</a><button type="button" id="btn-short-to-qr" class="btn btn-secondary">이 주소로 QR 만들기 →</button></div>
+        <div id="short-result-qr-preview" aria-label="단축 주소 QR 미리보기"></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>QRnShort · URL 단축: <a href="https://da.gd/" target="_blank" rel="noopener noreferrer">da.gd</a> / <a href="https://is.gd/" target="_blank" rel="noopener noreferrer">is.gd</a> · 보관함은 이 브라우저에 저장됩니다.</p><a href="../index.html" class="back-link">메인으로</a></div></footer>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="../common.js"></script><script src="../app.js"></script>
+</body></html>
